@@ -668,6 +668,52 @@ filterBtns.forEach(btn => {
 
 
 
+  <h2>Login</h2>
+  <form id="loginForm">
+    <label>Email:</label><br />
+    <input type="email" id="email" required><br /><br />
+
+    <label>Password:</label><br />
+    <input type="password" id="password" required><br /><br />
+
+    <button type="submit">Login</button>
+  </form>
+
+  <p id="responseMsg"></p>
+
+  <script>
+    const form = document.getElementById("loginForm");
+    const msg = document.getElementById("responseMsg");
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+
+      const response = await fetch("http://localhost:3000/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        msg.innerText = "Login Successful!";
+        console.log("User Info:", data.user);
+      } else {
+        msg.innerText = data.message;
+      }
+    });
+  </script>
+
+
+
+
+
 
 
 
@@ -745,6 +791,9 @@ filterBtns.forEach(btn => {
   </div>
 
 </footer>
+
+
+
 
 
 
